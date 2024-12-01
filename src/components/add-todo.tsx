@@ -1,14 +1,22 @@
 'use client'
 
-import React, { ChangeEvent, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 
 const AddTodo = () => {
 
-    const [todo, setTodo] = useState("")
+    const [todo, setTodo] = useState("");
+
+
+    const handleFormSubmit = (e:FormEvent<HTMLFormElement>)=>{
+        e.preventDefault()
+        // handleAddTodo(todo)
+        // setTodo('')
+
+    }
 
   return (
-    <form >
-        <input type='text' placeholder='white your todo' name='' value={todo} onChange={(event: ChangeEvent<HTMLInputElement>) => setTodo(event.target.value)}/>
+    <form onSubmit={handleFormSubmit}>
+        <input type='text' placeholder='white your todo' name='' value={todo} onChange={(event) => setTodo(event.target.value)}/>
         <button type='submit'>Add</button>    
     </form>
   )
