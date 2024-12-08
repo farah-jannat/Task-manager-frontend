@@ -11,21 +11,21 @@ const Todos = () => {
   return (
     <div>
       {todos.map((todo) => (
-        <div key={todo.id}>
+        <div key={todo._id}>
           <ul>
-            <li key={todo.id}>
+            <li key={todo._id}>
               <input
                 type="checkbox"
                 name=""
-                id={`todo-${todo.id}`}
+                id={`todo-${todo._id}`}
                 checked={todo.completed}
-                onChange={() => toggleTodoAsCompleted(todo.id)}
+                onChange={() => toggleTodoAsCompleted(todo._id)}
               />
 
-              <label htmlFor={`todo-${todo.id}`}> {todo.task}</label>
+              <label htmlFor={`todo-${todo._id}`}> {todo.taskName}</label>
 
               {todo.completed && (
-                <button type="button" onClick={() => handleTodoDelete(todo.id)}>
+                <button type="button" onClick={() => handleTodoDelete(todo._id)}>
                   delete{" "}
                 </button>
               )}
