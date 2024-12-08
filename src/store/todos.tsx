@@ -26,6 +26,8 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
     setTodos((tasks))
   }
 
+  
+
   const handleAddTodo = (task: string) => {
     console.log("task is ", task);
 
