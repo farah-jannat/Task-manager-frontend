@@ -2,11 +2,13 @@
 
 import { useTodos } from "@/store/todos";
 import React, { FormEvent, useEffect, useState } from "react";
-import { CreateTask, GetAllTasks } from "@/api";
+import { CreateTask, DeleteTaskById, GetAllTasks } from "@/api";
 const AddTodo = () => {
-  const { handleTodos } = useTodos();
+  const { handleTodos  } = useTodos();
 
   const [todo, setTodo] = useState("");
+
+ 
 
   const fetchTodos = async () => {
     try {
@@ -17,6 +19,7 @@ const AddTodo = () => {
       console.log(err);
     };
   };
+
   // useEffect(()=>{
   //   fetchTodos()
   // },[])
@@ -25,6 +28,7 @@ const AddTodo = () => {
     const obj = {
       taskName: todo,
       isDone: false,
+      
     };
     try {
       const { success, message } = await CreateTask(obj);
