@@ -1,53 +1,71 @@
-"use client"
+"use client";
 
-import {createContext, ReactNode,useContext,useState } from "react";
-
+import { createContext, ReactNode, useContext, useState } from "react";
 
 export type Todo = {
-    id:string;
-    task:string;
-    completed:boolean;
-    createdAt:Date;
-}
+  id: string;
+  task: string;
+  completed: boolean;
+  createdAt: Date;
+};
 
-export type TodosContext ={
-    todos: Todo[];
-    handleAddTodo: (task:string) => void
-}
+export type TodosContext = {
+  todos: Todo[];
+  handleAddTodo: (task: string) => void;
+  toggleTodoAsCompleted: (id: string) => void;
+  handleTodoDelete: (id: string) => void;
+};
 
-export const todosContext = createContext<TodosContext | null>(null)
+export const todosContext = createContext<TodosContext | null>(null);
 
-export const TodosProvider = ({children} : {children:ReactNode}) =>{
-    const [todos, setTodos] = useState<Todo[]>([])
+export const TodosProvider = ({ children }: { children: ReactNode }) => {
+  const [todos, setTodos] = useState<Todo[]>([]);
 
-    const handleAddTodo = (task:string)=>{
-        setTodos((prev)=>{
-            const newTodos:Todo[]=[
-                {
-                id: Math.random().toString(),
-                task,
-                completed:false,
-                createdAt:new Date()
-            },
-            ...prev 
-        ]
-        return newTodos;}
-    )
-   
+  const handleAddTodo = (task: string) => {
+    console.log("task is ", task);
 
-    }
+    return setTodos((prev) => {
+      const newTodos: Todo[] = [
+        {
+          id: Math.random().toString(),
+          task,
+          completed: false,
+          createdAt: new Date(),
+        },
+        ...prev,
+      ];
+      return newTodos;
+    });
+  };
 
-    return (
-        <todosContext.Provider value={{todos, handleAddTodo}}>
-            {children}
-        </todosContext.Provider>
-    )
-}
+  const toggleTodoAsCompleted = (id: string) => {
+    setTodos((prev) => {
+      const newTodos = prev.map((task) => {
+        if (task.id === id) {
+          return { ...task, completed: !task.completed };
+        }
+        return task;
+      });
+      return newTodos;
+    });
+  };
 
-export function useTodos(){
-    const todosContextValue= useContext(todosContext)
-    if(!todosContextValue){
-        throw new Error('useTodos used outside of provider')
-    }
-    return todosContextValue
+  const toggle
+
+
+  return (
+    <todosContext.Provider
+      value={{ todos, handleAddTodo, toggleTodoAsCompleted }}
+    >
+      {children}
+    </todosContext.Provider>
+  );
+};
+
+export function useTodos() {
+  const todosContextValue = useContext(todosContext);
+  if (!todosContextValue) {
+    throw new Error("useTodos used outside of provider");
+  }
+  return todosContextValue;
 }
