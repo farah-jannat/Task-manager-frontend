@@ -50,12 +50,16 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const toggle
-
+  const handleTodoDelete = (id: string) => {
+    setTodos((prev) => {
+      const newTodos = prev.filter((task) => task.id !== id);
+      return newTodos;
+    });
+  };
 
   return (
     <todosContext.Provider
-      value={{ todos, handleAddTodo, toggleTodoAsCompleted }}
+      value={{ todos, handleAddTodo, toggleTodoAsCompleted, handleTodoDelete }}
     >
       {children}
     </todosContext.Provider>

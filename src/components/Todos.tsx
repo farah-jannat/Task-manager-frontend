@@ -25,10 +25,9 @@ const Todos = () => {
               <label htmlFor={`todo-${todo.id}`}> {todo.task}</label>
 
               {todo.completed && (
-                <button
-                  type="button"
-                  onClick={() => handleTodoDelete(todo.id)}
-                />
+                <button type="button" onClick={() => handleTodoDelete(todo.id)}>
+                  delete{" "}
+                </button>
               )}
             </li>
           </ul>
