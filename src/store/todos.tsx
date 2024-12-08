@@ -1,5 +1,6 @@
 "use client";
 
+import { CreateTask } from "@/api";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 export type Todo = {
@@ -21,6 +22,10 @@ export const todosContext = createContext<TodosContext | null>(null);
 export const TodosProvider = ({ children }: { children: ReactNode }) => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
+  const handleTodos = (tasks: Todo[]) =>{
+    setTodos((tasks))
+  }
+
   const handleAddTodo = (task: string) => {
     console.log("task is ", task);
 
@@ -34,8 +39,11 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
         },
         ...prev,
       ];
+
       return newTodos;
+      
     });
+    
   };
 
   const toggleTodoAsCompleted = (id: string) => {
@@ -59,7 +67,7 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <todosContext.Provider
-      value={{ todos, handleAddTodo, toggleTodoAsCompleted, handleTodoDelete }}
+      value={{ todos, handleAddTodo,handleTodos, toggleTodoAsCompleted, handleTodoDelete }}
     >
       {children}
     </todosContext.Provider>
